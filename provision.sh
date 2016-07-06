@@ -85,8 +85,6 @@ EOF
 echo "Restarting Apache"
 service apache2 restart > /dev/null 2>&1
 
-sudo chmod 0777 /vagrant/database/
-
 echo ""
 echo "All done."
 echo "Web application available at http://127.0.0.1:8080/"

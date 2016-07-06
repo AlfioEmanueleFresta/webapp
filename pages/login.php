@@ -37,7 +37,7 @@ if ($_POST) {
     <form method="POST" action="?page=login.php">
 
         <?php if ($_POST) { ?>
-            <div class="alert alert-error">
+            <div class="alert alert-danger">
                 Login failed. Please try again.
             </div>
         <?php } ?>

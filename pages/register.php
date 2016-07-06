@@ -12,7 +12,7 @@ if ($_POST) {
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
     $hint = $db->quote($_POST['hint']);
-    
+
     if ( !usernameIsValid($username) ) {
         $error = "The username must be alphanumeric and be 4-32 characters long.";
 
@@ -32,7 +32,8 @@ if ($_POST) {
                     VALUES  ('$username', '$password', $hint, '{$conf['default_role']}')
         ");
         if ($success) {
-            loginAs($username, $conf['default_role']);
+            $id = getUserIDByUsername($username);
+            loginAs($id, $username, $conf['default_role']);
             redirectTo("index.php");
 
         } else {

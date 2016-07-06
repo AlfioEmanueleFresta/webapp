@@ -44,6 +44,7 @@ function getCurrentUser() {
     }
 
     return [
+        "id"        => $_SESSION['id'],
         "username"  => $_SESSION['username'],
         "role"      => $_SESSION['role'],
     ];
@@ -86,7 +87,8 @@ function hashPassword($password) {
  * @param $username     The username
  * @param $role         The user role
  */
-function loginAs($username, $role) {
+function loginAs($id, $username, $role) {
+    $_SESSION['id']         = $id;
     $_SESSION['username']   = $username;
     $_SESSION['role']       = $role;
 }
@@ -102,4 +104,19 @@ function usernameIsValid($username) {
     if ($l < 4 or $l > 32) { return false; }
     if (!ctype_alnum($username)) { return false; }
     return true;
+}
+
+
+/*
+ * Utility function to get a user ID by username
+ * @param $username The username of the user.
+ * @return The user ID of the user or null if the username does not exist.
+ */
+function getUserIDByUsername($username) {
+    global $db;
+    $username = $db->quote($username);
+    $q = $db->query("SELECT id FROM users WHERE username = $username");
+    $r = $q->fetch(PDO::FETCH_ASSOC);
+    if (!$r) { return null; }
+    return $r['id'];
 }

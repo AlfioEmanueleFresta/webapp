@@ -7,8 +7,14 @@
  * Copyright 2016 Alfio E. Fresta
  */
 
+session_start();
+
+require('inc/configuration.php');
 require('inc/database.php');
 require('inc/functions.php');
+
+$user = getCurrentUser();
+
 require('inc/header.php');
 
 if ( empty($_GET['page']) ) {

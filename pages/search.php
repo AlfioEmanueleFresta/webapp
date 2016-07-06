@@ -10,21 +10,46 @@ function prepareSearchTerms($terms) {
     return $terms;
 }
 
-$query = prepareSearchTerms($_GET['q']);
+$query = prepareSearchTerms(@$_GET['q']);
 
-$results = searchArticles($query);
-$resultsNo = count($results);
+if ($query) {
+    $results = searchArticles($query);
+    $resultsNo = count($results);
+}
 
 ?>
 
-<h2>
-    <?= $resultsNo; ?> results found for "<?= $query; ?>"
-</h2>
-
-<?php if (!$resultsNo) { ?>
-    <p>Sorry, no article matched your search terms.</p>
+<?php if ($query) { ?>
+    <h2>
+        <?= $resultsNo; ?> results found for "<?= $query; ?>"
+    </h2>
 
 <?php } else { ?>
+    <h2>Search our website</h2>
+
+<?php } ?>
+
+<form method="GET">
+    <input type="hidden" name="page" value="search.php" />
+
+    <div class="input-group">
+        <input type="text" name="q" value="<?= $query; ?>" autofocus
+               class="form-control" placeholder="Search for...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+            <i class="glyphicon glyphicon-search"></i>
+            Search
+        </button>
+      </span>
+    </div><!-- /input-group -->
+
+</form>
+
+
+<?php if ($query && !$resultsNo) { ?>
+    <p>Sorry, no article matched your search terms.</p>
+
+<?php } elseif ($query) { ?>
 
     <!-- Show the list of search results. -->
     <ul>

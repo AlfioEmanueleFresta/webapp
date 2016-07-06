@@ -6,9 +6,13 @@
  * @param $query The search terms.
  * @return A list of associative arrays representing articles.
  */
-function searchArticles($query) use ($db) {
+function searchArticles($query) {
 
-    $q = $db->query("SELECT FROM articles WHERE title LIKE :q");
+    global $db;
+
+    $q = $db->prepare("SELECT FROM articles WHERE title LIKE :q");
+    if (!$q) { return []; }
+
     $q->bindValue(':q', $query);
     $q->execute();
 
@@ -17,3 +21,18 @@ function searchArticles($query) use ($db) {
 
 }
 
+
+/*
+ * This function returns the current logged in user or
+ * null if the user is not logged in.
+ * @return The username of the current user or null.
+ */
+function getCurrentUser() {
+
+    global $_SESSION;
+    if (empty($_SESSION['username'])) {
+        return null;
+    }
+    return $_SESSION['username'];
+
+}

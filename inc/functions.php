@@ -77,7 +77,7 @@ function passwordIsComplexEnough($password) {
  * @return The hash string of the password.
  */
 function hashPassword($password) {
-    return $password; // TODO Make this a (non-salted) hash!
+    return hash('sha256', $password);
 }
 
 

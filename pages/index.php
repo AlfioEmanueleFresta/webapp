@@ -15,18 +15,8 @@ $query = $db->query("
     LIMIT     0, 10
 ");
 $query->execute();
-
 $articles = $query->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ( $articles as $article ) { ?>
-
-    <h4><?= $article["title"]; ?></h4>
-    <p>Posted by <?= $article["author_username"]; ?> on <?= date('d/m/Y H:i', $article["timestamp"]); ?></p>
-    <p>
-        <a href="?page=read.php&article_id=<?= $article["article_id"]; ?>">
-            Read the article &raquo;
-        </a>
-    </p>
-    <p>&nbsp;</p>
-
-<?php } ?>
+foreach ( $articles as $article ) {
+    include('./pages/fragments/article-preview.php');
+}

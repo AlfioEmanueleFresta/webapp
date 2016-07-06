@@ -9,11 +9,19 @@
 function searchArticles($query) {
 
     global $db;
-
-    $q = $db->prepare("SELECT FROM articles WHERE title LIKE :q");
-    if (!$q) { return []; }
-
-    $q->bindValue(':q', $query);
+    
+    $q = $db->query("
+        SELECT    articles.id as article_id,
+                  title,
+                  author_id,
+                  users.username as author_username,
+                  users.role as author_role,
+                  timestamp,
+                  body
+        FROM      articles, users
+        WHERE     articles.author_id = users.id
+        AND       title LIKE '%$query%'
+    ");
     $q->execute();
 
     $r = $q->fetchAll(PDO::FETCH_ASSOC);

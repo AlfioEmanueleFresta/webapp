@@ -44,24 +44,20 @@ if ($query) {
     </div><!-- /input-group -->
 
 </form>
+<hr />
 
 
 <?php if ($query && !$resultsNo) { ?>
-    <p>Sorry, no article matched your search terms.</p>
+    <div class="alert alert-warning">
+        Sorry, no article matched your search terms.
+    </div>
 
-<?php } elseif ($query) { ?>
+<?php } elseif ($query) {
 
-    <!-- Show the list of search results. -->
-    <ul>
-        <?php foreach ($results as $result) { ?>
-            <li>
-                <a href="?p=read.php&id=<?= $result["id"]; ?>">
-                    <?= $result["title"]; ?>
-                </a>
-            </li>
+    // Show the list of search results.
+    foreach ($results as $article) {
+        include('./pages/fragments/article-preview.php');
+    }
 
-        <?php } ?>
-    </ul>
-
-<?php } ?>
+}
 

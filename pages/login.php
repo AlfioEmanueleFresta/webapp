@@ -7,10 +7,10 @@
 if ($_POST) {
 
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = hashPassword($_POST['password']);
 
     $query = $db->query("
-      SELECT id, username, role FROM users WHERE username='$username' AND password='$password'
+      SELECT username, role FROM users WHERE username='$username' AND password='$password'
     ");
     
     $query->execute();
@@ -19,9 +19,7 @@ if ($_POST) {
     
     if ( $success ) {
 
-        $_SESSION['id']         = $result['id'];
-        $_SESSION['username']   = $result['username'];
-        $_SESSION['role']       = $result['role'];
+        loginAs($result['username'], $result['role']);
         redirectTo("index.php");
 
     }

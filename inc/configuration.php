@@ -11,6 +11,9 @@ $conf = [
         "username"  =>  "dbuser",
         "password"  =>  "hackmeplease",
         "options"   =>  [],
-    ]
+    ],
 
+    "minimum_password_length"   => 4,
+    "default_role"              => "user",
+    
 ];

@@ -48,6 +48,6 @@ function getCurrentUser() {
  * Redirect the user to a different page.
  */
 function redirectTo($page) {
-    header("Location: ?p=$page");
+    header("Location: ?page=$page");
     exit(0);
 }

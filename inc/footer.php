@@ -2,7 +2,7 @@
             <p>&nbsp; <!-- Some spacing --></p>
             <hr />
             <footer>
-                &copy;2016 Foo Bar.
+                &copy;<?= date('Y'); ?> <?= $conf['title']; ?>.
             </footer>
         </div>
     </body>

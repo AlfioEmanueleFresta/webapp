@@ -36,3 +36,12 @@ function getCurrentUser() {
     return $_SESSION['username'];
 
 }
+
+
+/*
+ * Redirect the user to a different page.
+ */
+function redirectTo($page) {
+    header("Location: ?p=$page");
+    exit(0);
+}

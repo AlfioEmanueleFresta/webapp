@@ -6,7 +6,7 @@
  * @return The string to search for.
  */
 function prepareSearchTerms($terms) {
-    $terms = strtolower($terms);
+    $terms = ucwords($terms);  // Capitalise each word.
     return $terms;
 }
 

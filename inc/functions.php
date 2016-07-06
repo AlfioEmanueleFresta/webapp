@@ -100,6 +100,6 @@ function loginAs($username, $role) {
 function usernameIsValid($username) {
     $l = strlen($username);
     if ($l < 4 or $l > 32) { return false; }
-    if (!ctype_alpha($username)) { return false; }
+    if (!ctype_alnum($username)) { return false; }
     return true;
 }

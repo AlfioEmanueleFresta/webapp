@@ -13,7 +13,7 @@ if ($_POST) {
     $password2 = $_POST['password2'];
     
     if ( !usernameIsValid($username) ) {
-        $error = "The username must contain only letters have between 4-32 characters.";
+        $error = "The username must be alphanumeric and be 4-32 characters long.";
 
     } elseif ($password1 != $password2) {
         $error = "The passwords you inserted do not correspond.";

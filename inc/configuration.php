@@ -7,9 +7,9 @@ $conf = [
     "title"     =>  "A Terrible Website",
 
     "database"  => [
-        "dsn"       =>  "sqlite:./database/database.sqlite",
-        "username"  =>  null,
-        "password"  =>  null,
+        "dsn"       =>  "mysql:host=localhost;dbname=dbname",
+        "username"  =>  "dbuser",
+        "password"  =>  "hackmeplease",
         "options"   =>  [],
     ]
 

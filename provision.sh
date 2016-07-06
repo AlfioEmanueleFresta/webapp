@@ -85,6 +85,9 @@ EOF
 echo "Restarting Apache"
 service apache2 restart > /dev/null 2>&1
 
+echo "Loading initial database"
+mysql -u$DBUSER -p$DBPASSWD $DBNAME < /vagrant/database/setup.sql
+
 echo ""
 echo "All done."
 echo "Web application available at http://127.0.0.1:8080/"

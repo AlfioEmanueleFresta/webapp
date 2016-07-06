@@ -42,3 +42,4 @@ is mounted at `/vagrant/` in the VM.
 
 You can stop the machine using `vagrant halt` or destroy it completely with `vagrant destroy`.
 
+You can access the database (via phpMyAdmin) at [http://127.0.0.1:8081](http://127.0.0.1:8081) with credentials `dbuser` and `hackmeplease`.

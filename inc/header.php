@@ -46,7 +46,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <?php if ($user) { ?>
-                    <li class="active"><a href="#">Hi, <strong><?= $user; ?></strong></a></li>
+                    <li class="active"><a href="#">Hi, <strong><?= $user["username"]; ?></strong> (role: <?= $user["role"]; ?>)</a></li>
                     <li><a href="?page=logout.php"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
 
                 <?php } else { ?>

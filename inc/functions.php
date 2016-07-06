@@ -30,10 +30,16 @@ function searchArticles($query) {
 function getCurrentUser() {
 
     global $_SESSION;
+
     if (empty($_SESSION['username'])) {
         return null;
     }
-    return $_SESSION['username'];
+
+    return [
+        "id"        => $_SESSION['id'],
+        "username"  => $_SESSION['username'],
+        "role"      => $_SESSION['role'],
+    ];
 
 }
 

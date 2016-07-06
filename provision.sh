@@ -39,7 +39,7 @@ mysql -uroot -p$DBPASSWD -e "CREATE DATABASE $DBNAME"
 mysql -uroot -p$DBPASSWD -e "grant all privileges on $DBNAME.* to '$DBUSER'@'localhost' identified by '$DBPASSWD'"
 
 echo "Installing PHP-specific packages"
-apt-get -y install php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt php5-mysql php5-sqlite php-apc > /dev/null 2>&1
+apt-get -y install php5 apache2 libapache2-mod-php5 php5-curl php5-gd php5-mcrypt php5-mysql php5-sqlite php-apc phpunit > /dev/null 2>&1
 
 echo "Enabling mod-rewrite"
 a2enmod rewrite > /dev/null 2>&1
@@ -88,6 +88,33 @@ service apache2 restart > /dev/null 2>&1
 echo "Loading initial database"
 mysql -u$DBUSER -p$DBPASSWD $DBNAME < /vagrant/database/setup.sql
 
+
+
 echo ""
 echo "All done."
 echo "Web application available at http://127.0.0.1:8080/"
+echo " "
+echo " == You can now access the application."
+echo " == This installer will continue to install the software needed for "
+echo " == testing, feel free to ignore or interrupt it if you don't intend to"
+echo " == run tests on your platform."
+echo " "
+
+
+## Testing
+
+cd ~
+echo "Installing Testing requirements"
+apt-get install -y openjdk-7-jre > /dev/null 2>&1
+
+echo "Downloading Selenium Server"
+wget http://goo.gl/EoH85x -o SeleniumServer.jar
+
+echo "Downloading PhantomJS headless browser"
+wget https://gist.githubusercontent.com/julionc/7476620/raw/e8f36f2a2d616720983e8556b49ec21780c96f0c/install_phantomjs.sh  > /dev/null 2>&1
+sh install_phantomjs.sh > /dev/null 2>&1
+
+echo "Starting Selenium Server"
+nohup java -jar SeleniumServer.jar &
+
+echo "Done."

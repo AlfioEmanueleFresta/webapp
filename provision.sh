@@ -89,7 +89,6 @@ echo "Loading initial database"
 mysql -u$DBUSER -p$DBPASSWD $DBNAME < /vagrant/database/setup.sql
 
 
-
 echo ""
 echo "All done."
 echo "Web application available at http://127.0.0.1:8080/"
@@ -98,7 +97,7 @@ echo " == You can now access the application."
 echo " == This installer will continue to install the software needed for "
 echo " == testing, feel free to ignore or interrupt it if you don't intend to"
 echo " == run tests on your platform."
-echo " "
+echo ""
 
 
 ## Testing
@@ -108,13 +107,13 @@ echo "Installing Testing requirements"
 apt-get install -y openjdk-7-jre > /dev/null 2>&1
 
 echo "Downloading Selenium Server"
-wget http://goo.gl/EoH85x -o SeleniumServer.jar
+wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
 
 echo "Downloading PhantomJS headless browser"
 wget https://gist.githubusercontent.com/julionc/7476620/raw/e8f36f2a2d616720983e8556b49ec21780c96f0c/install_phantomjs.sh  > /dev/null 2>&1
 sh install_phantomjs.sh > /dev/null 2>&1
 
 echo "Starting Selenium Server"
-nohup java -jar SeleniumServer.jar &
+nohup java -jar SeleniumServer.jar 0<&- &>/dev/null &
 
 echo "Done."

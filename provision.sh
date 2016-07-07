@@ -125,11 +125,22 @@ apt-get install -y openjdk-7-jre > /dev/null 2>&1
 echo "Downloading Selenium Server"
 wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
 
-echo "Downloading PhantomJS headless browser"
-wget https://gist.githubusercontent.com/julionc/7476620/raw/e8f36f2a2d616720983e8556b49ec21780c96f0c/install_phantomjs.sh  > /dev/null 2>&1
-sh install_phantomjs.sh > /dev/null 2>&1
-
 echo "Starting Selenium Server"
 nohup java -jar SeleniumServer.jar 0<&- &>/dev/null &
+
+echo "Installing PhantomJS headless browser"
+    PHANTOM_VERSION="phantomjs-1.9.8"
+    ARCH=$(uname -m)
+    if ! [ $ARCH = "x86_64" ]; then
+        $ARCH="i686"
+    fi
+    PHANTOM_JS="$PHANTOM_VERSION-linux-$ARCH"
+    apt-get install build-essential chrpath libssl-dev libxft-dev -y  > /dev/null 2>&1
+    apt-get install libfreetype6 libfreetype6-dev -y  > /dev/null 2>&1
+    apt-get install libfontconfig1 libfontconfig1-dev -y  > /dev/null 2>&1
+    wget -q https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+    tar xvjf $PHANTOM_JS.tar.bz2
+    mv $PHANTOM_JS /usr/local/share
+    ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
 
 echo "Done."

@@ -20,7 +20,7 @@ environment.
 
 You should download and install:
 - [Oracle VM VirtualBox](https://www.virtualbox.org/)
-- [Hashicorp Vagrant](https://www.vagrantup.com/)
+- [Hashicorp Vagrant](https://www.vagrantup.com/) 1.8+
 
 These are both free and open source software packages and run on Linux, OS X and Windows.
 
@@ -49,6 +49,5 @@ You can access the database (via phpMyAdmin) at [http://127.0.0.1:8081](http://1
 The software has a few functional tests to verify that the application is working and vulnerable as expected. You can run these tests after setting up the VM by running:
 
 ```bash
-cd /vagrant/
-vendor/bin/phpunit tests
+vagrant ssh -c "cd /vagrant/ && vendor/bin/phpunit tests"
 ```

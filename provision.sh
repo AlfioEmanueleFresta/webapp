@@ -32,6 +32,10 @@ echo "phpmyadmin phpmyadmin/app-password-confirm password $DBPASSWD" | debconf-s
 echo "phpmyadmin phpmyadmin/mysql/admin-pass password $DBPASSWD" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/mysql/app-pass password $DBPASSWD" | debconf-set-selections
 echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect none" | debconf-set-selections
+
+echo "Removing eventual previous MySQL installation"
+apt-get -y remove mysql-server
+
 echo "Installing MySQL 5.5"
 apt-get -y install mysql-server-5.5 phpmyadmin
 
@@ -50,7 +54,7 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 echo "Setting document root to project directory"
 rm -rf /var/www
-ln -fs . /var/www
+ln -fs $PROJECTPATH. /var/www
 
 echo "Turning PHP errors on"
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
@@ -87,7 +91,7 @@ echo "Restarting Apache"
 service apache2 restart > /dev/null 2>&1
 
 echo "Loading initial database"
-mysql -u$DBUSER -p$DBPASSWD $DBNAME < ./database/setup.sql
+mysql -u$DBUSER -p$DBPASSWD $DBNAME < $PROJECTPATH./database/setup.sql
 
 
 echo ""

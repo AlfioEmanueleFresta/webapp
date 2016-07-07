@@ -123,7 +123,6 @@ echo "Installing Testing requirements"
 apt-get install -y openjdk-7-jre > /dev/null 2>&1
 
 echo "Downloading Selenium Server"
-cd /tmp/
 wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
 
 echo "Downloading PhantomJS headless browser"

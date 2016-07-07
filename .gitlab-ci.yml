@@ -1,0 +1,6 @@
+before_script:
+  - vagrant up
+
+job:
+  script:
+    - vagrant ssh -c "cd /vagrant && vendor/bin/phpunit tests"

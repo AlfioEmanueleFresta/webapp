@@ -1,5 +1,5 @@
 <?php
-class SQLInjectionTest extends PHPUnit_Framework_TestCase {
+class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @var \RemoteWebDriver

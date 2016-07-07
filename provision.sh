@@ -37,10 +37,13 @@ echo "Removing eventual previous MySQL installation"
 apt-get -y remove mysql-server > /dev/null 2>&1
 
 echo "Installing MySQL 5.5"
-apt-get -y install mysql-server-5.5 phpmyadmin > /dev/null 2>&1
+apt-get -y install mysql-server-5.5 > /dev/null 2>&1
 
 echo "Starting MySQL"
 service mysql start
+
+echo "Installing phpMyAdmin"
+apt-get -y install phpmyadmin > /dev/null 2>&1
 
 echo "Setting up our MySQL user and db"
 mysql -uroot -p$DBPASSWD -e "CREATE DATABASE $DBNAME"

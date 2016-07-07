@@ -49,7 +49,7 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
 echo "Setting document root to project directory"
 rm -rf /var/www
-ln -fs /vagrant/ /var/www
+ln -fs . /var/www
 
 echo "Turning PHP errors on"
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini
@@ -86,7 +86,7 @@ echo "Restarting Apache"
 service apache2 restart > /dev/null 2>&1
 
 echo "Loading initial database"
-mysql -u$DBUSER -p$DBPASSWD $DBNAME < /vagrant/database/setup.sql
+mysql -u$DBUSER -p$DBPASSWD $DBNAME < ./database/setup.sql
 
 
 echo ""
@@ -102,7 +102,7 @@ echo ""
 
 ## Testing
 
-cd ~
+cd /tmp/
 echo "Installing Testing requirements"
 apt-get install -y openjdk-7-jre > /dev/null 2>&1
 

@@ -113,11 +113,17 @@ echo ""
 
 ## Testing
 
-cd /tmp/
+echo "Installing PHP Composer"
+curl -sS https://getcomposer.org/installer | php5 -- --install-dir=/usr/local/bin --filename=composer
+
+echo "Installing Composer Requirements"
+composer -q install
+
 echo "Installing Testing requirements"
 apt-get install -y openjdk-7-jre > /dev/null 2>&1
 
 echo "Downloading Selenium Server"
+cd /tmp/
 wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
 
 echo "Downloading PhantomJS headless browser"

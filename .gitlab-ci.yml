@@ -2,6 +2,8 @@ before_script:
   - sh provision.sh
   - wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
   - java -jar selenium-server-standalone-2.53.0.jar &
+  - wget https://gist.githubusercontent.com/julionc/7476620/raw/e8f36f2a2d616720983e8556b49ec21780c96f0c/install_phantomjs.sh
+  - sh install_phantomjs.sh
 
 job:
   script:

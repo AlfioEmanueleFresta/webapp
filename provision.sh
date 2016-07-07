@@ -122,12 +122,6 @@ composer -q install
 echo "Installing Testing requirements"
 apt-get install -y openjdk-7-jre > /dev/null 2>&1
 
-echo "Downloading Selenium Server"
-wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
-
-echo "Starting Selenium Server"
-nohup java -jar SeleniumServer.jar 0<&- &>/dev/null &
-
 echo "Installing PhantomJS headless browser"
     PHANTOM_VERSION="phantomjs-1.9.8"
     ARCH=$(uname -m)
@@ -139,8 +133,15 @@ echo "Installing PhantomJS headless browser"
     apt-get install libfreetype6 libfreetype6-dev -y  > /dev/null 2>&1
     apt-get install libfontconfig1 libfontconfig1-dev -y  > /dev/null 2>&1
     wget -q https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
-    tar xvjf $PHANTOM_JS.tar.bz2
+    tar xvjf $PHANTOM_JS.tar.bz2 > /dev/null 2>&1
     mv $PHANTOM_JS /usr/local/share
     ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+    ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /bin
+
+echo "Downloading Selenium Server"
+wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
+
+echo "Starting Selenium Server"
+nohup java -jar SeleniumServer.jar 0<&- &>/dev/null &
 
 echo "Done."

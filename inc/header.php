@@ -41,6 +41,10 @@
                 <li><a href="?page=index.php"><i class="glyphicon glyphicon-home"></i>Home</a></li>
                 <li><a href="?page=search.php"><i class="glyphicon glyphicon-search"></i>Search</a></li>
                 <li><a href="?page=about.php"><i class="glyphicon glyphicon-info-sign"></i>About</a></li>
+
+                <?php if ($user && $user["role"] == "staff") { ?>
+                    <li><a href="?page=users.php"><i class="glyphicon glyphicon-list"></i>Users list</a></li>
+                <?php } ?>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">

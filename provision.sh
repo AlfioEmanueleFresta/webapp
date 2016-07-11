@@ -124,6 +124,7 @@ apt-get install -y openjdk-7-jre > /dev/null 2>&1
 
 echo "Installing PhantomJS headless browser"
     PHANTOM_VERSION="phantomjs-1.9.8"
+    PHANTOM_CDN="http://cnpmjs.org/downloads/"
     ARCH=$(uname -m)
     if ! [ $ARCH = "x86_64" ]; then
         $ARCH="i686"
@@ -132,8 +133,8 @@ echo "Installing PhantomJS headless browser"
     apt-get install build-essential chrpath libssl-dev libxft-dev -y  > /dev/null 2>&1
     apt-get install libfreetype6 libfreetype6-dev -y  > /dev/null 2>&1
     apt-get install libfontconfig1 libfontconfig1-dev -y  > /dev/null 2>&1
-    echo "Downloading from https://npm.taobao.org/mirrors/phantomjs/$PHANTOM_JS.tar.bz2..."
-    wget -q https://npm.taobao.org/mirrors/phantomjs/$PHANTOM_JS.tar.bz2
+    echo "Downloading from $PHANTOM_CDN$PHANTOM_JS.tar.bz2..."
+    wget -q $PHANTOM_CDN$PHANTOM_JS.tar.bz2
     tar xvjf $PHANTOM_JS.tar.bz2 > /dev/null 2>&1
     mv $PHANTOM_JS /usr/local/share
     ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin

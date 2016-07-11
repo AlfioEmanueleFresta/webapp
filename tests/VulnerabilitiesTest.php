@@ -137,7 +137,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testUsersTable() {
-        $this->login("admin", "mobydick");
+        $this->loginAs("admin", "mobydick");
         $this->webDriver->get($this->url . "?page=users.php");
         $this->assertContains('what i love most', $this->webDriver->getPageSource());  // check for password hint
         $this->assertContains(

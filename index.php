@@ -7,6 +7,7 @@
  * Copyright 2016 Alfio E. Fresta
  */
 
+ob_start();
 session_start();
 
 require('inc/configuration.php');

@@ -10,7 +10,35 @@ $query->execute();
 
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
+if (isset($_GET['download'])) {
+
+    ob_clean();
+    header("Content-type: text/csv");
+    header("Content-Disposition: attachment; filename=users.csv");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+
+    $output = fopen("php://output", "w");
+    foreach ($users as $user) {
+        fputcsv($output, $user);
+    }
+    fclose($output);
+    exit(0);
+
+}
+
 ?>
+
+<h2>Registered Users</h2>
+
+<p>
+    <a href="?page=users.php&download=1" class="btn btn-default">
+        <i class="glyphicon glyphicon-download"></i>
+        Download (.csv)
+    </a>
+</p>
+
+<p>&nbsp;</p>
 
 <table class="table table-bordered table-condensed table-striped">
 

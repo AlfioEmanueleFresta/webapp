@@ -12,7 +12,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
-<table class="table table-bordered table-condensed">
+<table class="table table-bordered table-condensed table-striped">
 
     <thead>
         <th>ID</th>

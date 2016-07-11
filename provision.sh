@@ -137,11 +137,16 @@ echo "Installing PhantomJS headless browser"
     mv $PHANTOM_JS /usr/local/share
     ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
     ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /bin
+    sleep 2
 
 echo "Downloading Selenium Server"
 wget -q http://goo.gl/EoH85x -O SeleniumServer.jar
 
 echo "Starting Selenium Server"
+export PATH=$PATH:/usr/local/share/$PHANTOM_JS/bin/
 nohup java -jar SeleniumServer.jar 0<&- &>/dev/null &
+
+echo "Waiting for services to startup..."
+sleep 6
 
 echo "Done."

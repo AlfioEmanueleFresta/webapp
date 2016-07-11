@@ -43,7 +43,15 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
     public function testDirectoryTraversal()
     {
         $this->webDriver->get($this->url . "?page=../../etc/passwd");
-        $this->assertContains('root', $this->webDriver->getPageSource());
+        $vulnerablePasswdFile1 = strpos($this->webDriver->getPageSource(), 'root') !== false;
+
+        $this->webDriver->get($this->url . "?page=../../../etc/passwd");
+        $vulnerablePasswdFile2 = strpos($this->webDriver->getPageSource(), 'root') !== false;
+
+        $this->webDriver->get($this->url . "?page=../LICENSE.txt");
+        $vulnerableLicense = strpos($this->webDriver->getPageSource(), 'All rights reserved') !== false;
+
+        $this->assertTrue($vulnerablePasswdFile1 or $vulnerablePasswdFile2 or $vulnerableLicense);
     }
 
     public function testXSS1()

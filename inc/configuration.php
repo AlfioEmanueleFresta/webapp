@@ -16,6 +16,7 @@ $conf = [
 
     "minimum_password_length"   => 4,
     "default_role"              => "user",
-    "password_salt"             => "This is the salt for exercise 2",
+
+    "password_default_salt"     => "This is the salt for exercise 2",
 
 ];

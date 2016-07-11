@@ -28,8 +28,9 @@ if ($_POST) {
     } else {
         $password = hashPassword($password1);
         $success = $db->exec("
-            INSERT INTO     users (username, password, hint, role)
-                    VALUES  ('$username', '$password', $hint, '{$conf['default_role']}')
+            INSERT INTO     users (username, password, hint, role, salt)
+                    VALUES  ('$username', '$password', $hint, 
+                             '{$conf['default_role']}', '{$conf['password_default_salt']}')
         ");
         if ($success) {
             $id = getUserIDByUsername($username);

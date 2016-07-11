@@ -75,13 +75,28 @@ function passwordIsComplexEnough($password) {
 /*
  * Get a hash for the password.
  * @param $password The plain text password.
+ * @param $salt     The salt to prepend.
  * @return The hash string of the password.
  */
-function hashPassword($password) {
-    global $conf;
-    $salt = $conf["password_salt"];
+function hashPassword($password, $salt) {
     $password = "{$salt}{$password}";
     return hash('sha256', $password);
+}
+
+
+/*
+ * Get the salt for the user by its username.
+ * If the user does not exist, return the default salt.
+ * @param $username The username of the user you want to get the salt for.
+ * @return The salt for the username or, if it does not exist, the default salt.
+ */
+function getSaltByUsername($username, $default=false) {
+    global $db, $conf;
+    $username = $db->quote($username);
+    $q = $db->query("SELECT salt FROM users WHERE username = $username");
+    $r = $q->fetch(PDO::FETCH_ASSOC);
+    if (!$r) { return $conf["password_default_salt"]; }
+    return $r['salt'];
 }
 
 

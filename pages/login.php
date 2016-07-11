@@ -7,7 +7,8 @@
 if ($_POST) {
 
     $username = $_POST['username'];
-    $password = hashPassword($_POST['password']);
+    $salt = getSaltByUsername($username);
+    $password = hashPassword($_POST['password'], $salt);
 
     $query = $db->query("
       SELECT id, username, role FROM users WHERE username='$username' AND password='$password'

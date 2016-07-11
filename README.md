@@ -44,6 +44,18 @@ You can stop the machine using `vagrant halt` or destroy it completely with `vag
 
 You can access the database (via phpMyAdmin) at [http://127.0.0.1:8081](http://127.0.0.1:8081) with credentials `dbuser` and `hackmeplease`.
 
+## Updating
+
+To checkout the latest version of the project:
+
+```bash
+cd webapp/  # cd into the project's folder
+vagrant destroy -f && git pull && vagrant up
+```
+
+Note: This will discard any changes made to the VM's database.
+
+
 ## Testing
 
 The software has a few functional tests to verify that the application is working and vulnerable as expected. You can run these tests after setting up the VM by running:

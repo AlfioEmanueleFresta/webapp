@@ -1,7 +1,7 @@
 before_script:
   - PROJECTPATH=/builds/cyber-practicals/webapp/ sh provision.sh
-  - wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
-  - java -jar selenium-server-standalone-2.53.0.jar &
+#  - wget http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.0.jar
+#  - java -jar selenium-server-standalone-2.53.0.jar &
 
 job:
   script:

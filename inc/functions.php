@@ -78,6 +78,9 @@ function passwordIsComplexEnough($password) {
  * @return The hash string of the password.
  */
 function hashPassword($password) {
+    global $conf;
+    $salt = $conf["password_salt"];
+    $password = "{$salt}{$password}";
     return hash('sha256', $password);
 }
 

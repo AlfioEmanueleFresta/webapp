@@ -61,6 +61,7 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 echo "Setting document root to project directory"
 rm -rf /var/www
 ln -fs $PROJECTPATH. /var/www
+ls /var/www
 
 echo "Turning PHP errors on"
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/apache2/php.ini

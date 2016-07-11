@@ -132,8 +132,8 @@ echo "Installing PhantomJS headless browser"
     apt-get install build-essential chrpath libssl-dev libxft-dev -y  > /dev/null 2>&1
     apt-get install libfreetype6 libfreetype6-dev -y  > /dev/null 2>&1
     apt-get install libfontconfig1 libfontconfig1-dev -y  > /dev/null 2>&1
-    echo "Downloading from https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2..."
-    wget -q https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+    echo "Downloading from https://npm.taobao.org/mirrors/phantomjs/$PHANTOM_JS.tar.bz2..."
+    wget -q https://npm.taobao.org/mirrors/phantomjs/$PHANTOM_JS.tar.bz2
     tar xvjf $PHANTOM_JS.tar.bz2 > /dev/null 2>&1
     mv $PHANTOM_JS /usr/local/share
     ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin

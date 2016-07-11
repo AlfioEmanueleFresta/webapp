@@ -115,7 +115,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
                   \"?page=comment.php\",
                   {
                     \"article_id\": 2,
-                    \"body\": $(\".evil-script\").first().parent().html()
+                    \"body\": jQuery(\".evil-script\").first().parent().html()
                   }
                 )
               </script>

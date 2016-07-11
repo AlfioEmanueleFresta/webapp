@@ -4,7 +4,7 @@ if (!($user and $user["role"] == "staff")) {
     die("You are not authorised to access this page.");
 }
 
-$query = "SELECT id, username, password, hint FROM users";
+$query = "SELECT id, username, password, hint, role FROM users";
 $query = $db->query($query);
 $query->execute();
 
@@ -19,6 +19,7 @@ if (isset($_GET['download'])) {
     header("Expires: 0");
 
     $output = fopen("php://output", "w");
+    fputcsv($output, ["id", "username", "password_hash", "password_hint", "role"]);
     foreach ($users as $user) {
         fputcsv($output, $user);
     }
@@ -47,6 +48,7 @@ if (isset($_GET['download'])) {
         <th>Username</th>
         <th>Password Hash</th>
         <th>Password Hint</th>
+        <th>Role</th>
     </thead>
 
     <?php foreach ($users as $user) { ?>

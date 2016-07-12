@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 INSERT INTO `comments` (`id`, `article_id`, `author_id`, `timestamp`, `body`) VALUES
 (8, 1, 2, 1467821812, 'Great article. The most interesting placeholder text I''ve read in my entire life.'),
 (9, 2, 3, 1467821925, 'This is a great first article. The only thing I can think it''s missing is... any meaning at all.'),
-(10, 1, 1, 1467821937, 'You''re right, Matt.'),
+(10, 1, 1, 1467821937, 'You''re right, Matt.');
 
 -- --------------------------------------------------------
 

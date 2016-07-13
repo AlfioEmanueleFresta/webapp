@@ -21,7 +21,7 @@ if ($_POST) {
     if ( $success ) {
 
         loginAs($result['id'], $result['username'], $result['role']);
-        redirectTo("index.php");
+        redirectTo("index.php&logged_in");
 
     }
 

@@ -70,10 +70,18 @@
 
 
     <?php if (isset($_GET['logged_out'])) { ?>
-    <div class="alert alert-success">
-        <i class="glyphicon glyphicon-check"></i>
-        You have been successfully logged out.
-        <a class="close-button">Close</a>.
-    </div>
+        <div class="alert alert-info">
+            <i class="glyphicon glyphicon-info-sign"></i>
+            You have been successfully logged out.
+            <a class="close-button pull-right">Close</a>
+        </div>
+    <?php } ?>
+
+    <?php if (isset($_GET['logged_in']) && $user) { ?>
+        <div class="alert alert-success">
+            <i class="glyphicon glyphicon-check"></i>
+            Login successful. Welcome back, <?= $user['username']; ?>!
+            <a class="close-button pull-right">Close</a>
+        </div>
     <?php } ?>
 

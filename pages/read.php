@@ -30,7 +30,7 @@ $query = $db->query("
     FROM        comments, users
     WHERE       comments.author_id = users.id
     AND         comments.article_id = $id
-    ORDER BY    timestamp DESC 
+    ORDER BY    timestamp DESC, id DESC
     LIMIT       0, 10
 ");
 $query->execute();

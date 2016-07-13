@@ -13,8 +13,7 @@ if ($salted_list) {
 
 } else {
     $fields = ["id", "username", "password", "hint", "role"];
-    $extra_query = "salt = $default_salt";
-    $extra_query = "id >= 16";
+    $extra_query = "salt = $default_salt AND id >= 16";
 
 }
 

@@ -7,10 +7,13 @@
  * Copyright 2016 Alfio E. Fresta
  */
 
-ob_start();
-session_start();
 
 require('inc/configuration.php');
+
+ob_start();
+ini_set("session.gc_maxlifetime", $conf["php.session.gc_maxlifetime"]);
+session_start();
+
 require('inc/database.php');
 require('inc/functions.php');
 

@@ -1,4 +1,3 @@
-
 <h2>Latest articles</h2>
 <p>Here is a list of the most recent articles from our website!</p>
 <p>&nbsp;</p>

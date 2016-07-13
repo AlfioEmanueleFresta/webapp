@@ -1,11 +1,11 @@
 <?php
 
-session_unset();
-session_destroy();
+// This is not the right way to log out a user,
+// but it is needed to allow session IDs to continue
+// to be valid after logout. This is simply to allow
+// to demonstrate session hijacking for students using
+// a single browser/computer.
+session_regenerate_id(false);
+$_SESSION = [];
 
-?>
-
-<h2 class="text-success">Thanks for visiting!</h2>
-<p>You have been successfully logged out.</p>
-
-<p>Go back to the <a href="?page=index.php">Home page</a>.</p>
+redirectTo("index.php&logged_out");

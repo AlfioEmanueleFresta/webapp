@@ -17,6 +17,7 @@
 
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/app.js"></script>
 
 </head>
 
@@ -66,4 +67,13 @@
 
 
 <div class="container">
+
+
+    <?php if (isset($_GET['logged_out'])) { ?>
+    <div class="alert alert-success">
+        <i class="glyphicon glyphicon-check"></i>
+        You have been successfully logged out.
+        <a class="close-button">Close</a>.
+    </div>
+    <?php } ?>
 

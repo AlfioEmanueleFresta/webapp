@@ -2,6 +2,7 @@
 
 $id = (int) $_GET['article_id'];
 
+// Query to get the article data by its ID
 $query = $db->query("
     SELECT      title, 
                 timestamp,
@@ -14,7 +15,6 @@ $query = $db->query("
     AND         articles.id = $id
 ");
 $query->execute();
-
 $article = $query->fetch(PDO::FETCH_ASSOC);
 
 if (!$article) {
@@ -22,6 +22,7 @@ if (!$article) {
     redirectTo("404.php");
 }
 
+// Query to get the comments for the article
 $query = $db->query("
     SELECT      users.username as author_username,
                 timestamp,

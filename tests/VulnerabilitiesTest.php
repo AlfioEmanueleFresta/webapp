@@ -54,6 +54,24 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($vulnerablePasswdFile1 or $vulnerablePasswdFile2 or $vulnerableLicense);
     }
 
+    public function testDirectoryTraversalWithNullByte()
+    {
+
+        $this->markTestIncomplete(
+            'Null-byte injection does not work yet.'
+        );
+        $this->webDriver->get($this->url . "?page=../../etc/passwd\x00something");
+        $vulnerablePasswdFile1 = strpos($this->webDriver->getPageSource(), 'root') !== false;
+
+        $this->webDriver->get($this->url . "?page=../../../etc/passwd\x00something");
+        $vulnerablePasswdFile2 = strpos($this->webDriver->getPageSource(), 'root') !== false;
+
+        $this->webDriver->get($this->url . "?page=../LICENSE.txt\x00something");
+        $vulnerableLicense = strpos($this->webDriver->getPageSource(), 'All rights reserved') !== false;
+
+        $this->assertTrue($vulnerablePasswdFile1 or $vulnerablePasswdFile2 or $vulnerableLicense);
+    }
+
     public function testXSS1()
     {
         $this->loginAs("admin", "mobydick");

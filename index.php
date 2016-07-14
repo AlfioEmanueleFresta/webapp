@@ -30,11 +30,9 @@ if ( empty($_GET['page']) ) {
 }
 
 $full_path = "./pages/{$page}";
-
-if (!file_exists($full_path)) {
-    $full_path = "./pages/404.php";
+$file_exists = @include $full_path;
+if (!$file_exists) {
+    include "./pages/404.php";
 }
-
-require($full_path);
 
 require('inc/footer.php');

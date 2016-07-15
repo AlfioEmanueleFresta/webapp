@@ -189,6 +189,18 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('Hi, <strong>alanturing</strong>', $this->webDriver->getPageSource());
         $this->logout();
 
+        $this->webDriver->get($this->url . "?page=register.php");
+        $usernameField = $this->webDriver->findElement(\WebDriverBy::name("username"));
+        $password1Field = $this->webDriver->findElement(\WebDriverBy::name("password1"));
+        $password2Field = $this->webDriver->findElement(\WebDriverBy::name("password2"));
+        $hintField = $this->webDriver->findElement(\WebDriverBy::name("hint"));
+
+        $usernameField->sendKeys("alanturing");
+        $password1Field->sendKeys($password);
+        $password2Field->sendKeys($password);
+        $hintField->sendKeys("Accomplishment")->submit();
+        $this->assertContains('The username you chose is already in use', $this->webDriver->getPageSource());
+
         $this->loginAs('alanturing', $password);
         $this->assertContains('Hi, <strong>alanturing</strong>', $this->webDriver->getPageSource());
     }

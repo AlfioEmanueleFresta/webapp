@@ -11,7 +11,7 @@ if ($_POST) {
     $username = strtolower($_POST['username']);
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    $hint = $db->quote($_POST['hint']);
+    $hint = $_POST['hint'];
 
     if ( !usernameIsValid($username) ) {
         $error = "The username must be alphanumeric and be 4-32 characters long.";
@@ -26,12 +26,19 @@ if ($_POST) {
         $error = "The password needs to have at least {$conf['minimum_password_length']} characters.";
         
     } else {
-        $password = hashPassword($password1, $conf["password_default_salt"]);;
-        $success = $db->exec("
-            INSERT INTO     users (username, password_hash, hint, role, salt)
-                    VALUES  ('$username', '$password', $hint, 
-                             '{$conf['default_role']}', '{$conf['password_default_salt']}')
+
+        $query = $db->prepare("
+            INSERT INTO     users (username, password, hint, role, salt)
+                 VALUES     (:u, :p, :h, :r, :s)
         ");
+        $success = $query->execute([
+            ':u' => $username,
+            ':p' => $password1,
+            ':h' => $hint,
+            ':r' => $conf["default_role"],
+            ':s' => $conf["password_default_salt"],
+        ]);
+
         if ($success) {
             $id = getUserIDByUsername($username);
             loginAs($id, $username, $conf['default_role']);

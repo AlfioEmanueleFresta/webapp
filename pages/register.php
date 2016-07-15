@@ -8,7 +8,7 @@ $error = false;
 
 if ($_POST) {
 
-    $username = $_POST['username'];
+    $username = strtolower($_POST['username']);
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
     $hint = $db->quote($_POST['hint']);
@@ -26,9 +26,9 @@ if ($_POST) {
         $error = "The password needs to have at least {$conf['minimum_password_length']} characters.";
         
     } else {
-        $password = hashPassword($password1);
+        $password = hashPassword($password1, $conf["password_default_salt"]);;
         $success = $db->exec("
-            INSERT INTO     users (username, password, hint, role, salt)
+            INSERT INTO     users (username, password_hash, hint, role, salt)
                     VALUES  ('$username', '$password', $hint, 
                              '{$conf['default_role']}', '{$conf['password_default_salt']}')
         ");

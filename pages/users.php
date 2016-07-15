@@ -8,11 +8,11 @@ $salted_list = (isset($_GET['salted']) && $_GET['salted']);
 $default_salt = $db->quote($conf["password_default_salt"]);
 
 if ($salted_list) {
-    $fields = ["id", "username", "password", "salt", "role"];
+    $fields = ["id", "username", "password_hash", "salt", "role"];
     $extra_query = "salt <> $default_salt";
 
 } else {
-    $fields = ["id", "username", "password", "hint", "role"];
+    $fields = ["id", "username", "password_hash", "hint", "role"];
     $extra_query = "salt = $default_salt AND id >= 16";
 
 }

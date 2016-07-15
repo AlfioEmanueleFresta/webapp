@@ -90,9 +90,9 @@ function hashPassword($password, $salt) {
  * @param $username The username of the user you want to get the salt for.
  * @return The salt for the username or, if it does not exist, the default salt.
  */
-function getSaltByUsername($username, $default=false) {
+function getSaltByUsername($username) {
     global $db, $conf;
-    $username = $db->quote($username);
+    $username = $db->quote(strtolower($username));
     $q = $db->query("SELECT salt FROM users WHERE username = $username");
     $r = $q->fetch(PDO::FETCH_ASSOC);
     if (!$r) { return $conf["password_default_salt"]; }
@@ -137,4 +137,37 @@ function getUserIDByUsername($username) {
     $r = $q->fetch(PDO::FETCH_ASSOC);
     if (!$r) { return null; }
     return $r['id'];
+}
+
+
+/*
+ * This function is used to simplify the login code, and to allow
+ * multiple practicals (SQL injection and Password hashing) to demonstrate
+ * using this application.
+ * 
+ * Given a query which returns id, role and username from the users table,
+ * runs it and returns the first row as an associative array. 
+ * 
+ * If the query returns no result, before giving up, it tries hashing the password.
+ * This is because some users have a plain text password and some don't, for the
+ * purposes of the different practicals.
+ * 
+ * @param $query The SQL query to get the user.
+ * @param $username The username, in case we need to retry using hashing..
+ * @param $password The password, in case we need to retry using hashing.
+ * @return array|false An array with the result or false.
+ */
+function getUserByQuery($query, $username, $password) {
+    global $db;
+    $query = $db->query($query);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    if ($result) { return $result; }
+    $password = hashPassword($password, getSaltByUsername($username));
+    $query = $db->prepare("SELECT id, role, username FROM users WHERE username = :u AND password_hash = :p");
+    $query->bindValue(':u', $username);
+    $query->bindValue(':p', $password);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    return $result;
 }

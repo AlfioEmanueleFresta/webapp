@@ -6,19 +6,14 @@
 
 if ($_POST) {
 
-    $username = $_POST['username'];
-    $salt = getSaltByUsername($username);
-    $password = hashPassword($_POST['password'], $salt);
+    $username = strtolower($_POST['username']);  // Make the username lowercase.
+    $password = $_POST['password'];
 
-    $query = $db->query("
-      SELECT id, username, role FROM users WHERE username='$username' AND password='$password'
-    ");
-    
-    $query->execute();
-    $result     = $query->fetch(PDO::FETCH_ASSOC);
-    $success    = (bool) $result;
-    
-    if ( $success ) {
+    $query = "SELECT id, username, role FROM users WHERE username='$username' AND password='$password'";
+
+    $result  = getUserByQuery($query, $username, $password);
+
+    if ( $result ) {
 
         loginAs($result['id'], $result['username'], $result['role']);
         redirectTo("index.php&logged_in");

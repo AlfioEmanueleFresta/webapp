@@ -4,20 +4,33 @@ if (!($user and $user["role"] == "staff")) {
     die("You are not authorised to access this page.");
 }
 
-$salted_list = (isset($_GET['salted']) && $_GET['salted']);
 $default_salt = $db->quote($conf["password_default_salt"]);
+$lists = [
+    'unsalted' => [
+        'fields' => ["id", "username", "password_hash", "hint", "role"],
+        'heading' => ["ID", "Username", "Password Hash", "Password Hint", "Role"],
+        'extra_query' => "salt = $default_salt AND password IS NULL",
+        'title' => 'Unsalted hash passwords',
+    ],
+    'salted' => [
+        'fields' => ["id", "username", "password_hash", "salt", "role"],
+        'heading' => ["ID", "Username", "Password Hash", "Password Salt", "Role"],
+        'extra_query' => "salt <> $default_salt AND password IS NULL",
+        'title' => 'Salted hash passwords',
+    ],
+    'plain_text' => [
+        'fields' => ["id", "username", "password", "hint", "role"],
+        'heading' => ["ID", "Username", "Password", "Password Hint", "Role"],
+        'extra_query' => "PASSWORD IS NOT NULL",
+        'title' => 'Plain-text passwords',
+    ],
+];
 
-if ($salted_list) {
-    $fields = ["id", "username", "password_hash", "salt", "role"];
-    $extra_query = "salt <> $default_salt";
+$default_list = 'unsalted';
+$current_list = isset($_GET['list']) && isset($lists[$_GET['list']]) ? $_GET['list'] : $default_list;
 
-} else {
-    $fields = ["id", "username", "password_hash", "hint", "role"];
-    $extra_query = "salt = $default_salt AND id >= 16";
-
-}
-
-$cs_fields = implode(', ', $fields);
+$cs_fields = implode(', ', $lists[$current_list]['fields']);
+$extra_query = $lists[$current_list]['extra_query'];
 $query = "SELECT $cs_fields FROM users WHERE $extra_query";
 $query = $db->query($query);
 $query->execute();
@@ -28,12 +41,12 @@ if (isset($_GET['download'])) {
 
     ob_clean();
     header("Content-type: text/csv");
-    header("Content-Disposition: attachment; filename=users.csv");
+    header("Content-Disposition: attachment; filename=users_$current_list.csv");
     header("Pragma: no-cache");
     header("Expires: 0");
 
     $output = fopen("php://output", "w");
-    fputcsv($output, $fields);
+    fputcsv($output, $lists[$current_list]['fields']);
     foreach ($users as $user) {
         fputcsv($output, $user);
     }
@@ -47,18 +60,19 @@ if (isset($_GET['download'])) {
 <h2>Registered Users</h2>
 
 <ul class="nav nav-tabs">
-    <li role="presentation" <?php if (!$salted_list) {?>class="active"<?php }?>>
-        <a href="?page=users.php&salted=0">Unsalted</a>
-    </li>
-    <li role="presentation" <?php if ($salted_list) {?>class="active"<?php }?>>
-        <a href="?page=users.php&salted=1">Salted</a>
-    </li>
+
+    <?php foreach ($lists as $key => $value) { ?>
+        <li role="presentation" <?php if ($current_list == $key) {?>class="active"<?php }?>>
+            <a href="?page=users.php&list=<?= $key; ?>"><?= $value['title']; ?></a>
+        </li>
+    <?php } ?>
+
 </ul>
 
 <p>&nbsp;</p>
 
 <p>
-    <a href="?page=users.php&download=1&salted=<?= (int) $salted_list; ?>" class="btn btn-default">
+    <a href="?page=users.php&download=1&list=<?= $current_list; ?>" class="btn btn-default">
         <i class="glyphicon glyphicon-download"></i>
         Download (.csv)
     </a>
@@ -68,17 +82,9 @@ if (isset($_GET['download'])) {
 <table class="table table-bordered table-condensed table-striped">
 
     <thead>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password Hash</th>
-        <?php if ($salted_list) { ?>
-            <th>Password Salt</th>
-
-        <?php } else { ?>
-            <th>Password Hint</th>
-
+        <?php foreach($lists[$current_list]['heading'] as $c) { ?>
+            <th><?= $c; ?></th>
         <?php } ?>
-        <th>Role</th>
     </thead>
 
     <?php foreach ($users as $user) { ?>

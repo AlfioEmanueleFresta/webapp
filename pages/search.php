@@ -23,28 +23,20 @@ if ($query) {
     <h2>
         <?= $resultsNo; ?> results found for "<?= $query; ?>"
     </h2>
+    <hr />
+
 
 <?php } else { ?>
+
     <h2>Search our website</h2>
+    <div class="alert alert-info">
+        Please insert one or more search term(s) to search the website.
+    </div>
+
 
 <?php } ?>
 
-<form method="GET">
-    <input type="hidden" name="page" value="search.php" />
 
-    <div class="input-group">
-        <input type="text" name="q" value="<?= $query; ?>" autofocus
-               class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">
-            <i class="glyphicon glyphicon-search"></i>
-            Search
-        </button>
-      </span>
-    </div><!-- /input-group -->
-
-</form>
-<hr />
 
 
 <?php if ($query && !$resultsNo) { ?>

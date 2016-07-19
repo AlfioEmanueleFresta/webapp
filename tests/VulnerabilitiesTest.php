@@ -37,7 +37,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
 
     public function testLoginHashed()
     {
-        $this->loginAs('b001', 'letmein');
+        $this->loginAs('b001', 'godzilla');
         $this->assertContains('Hi, <strong>b001</strong>', $this->webDriver->getPageSource());
     }
 

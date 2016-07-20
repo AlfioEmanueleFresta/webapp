@@ -13,7 +13,8 @@
     <title><?= $conf['title']; ?></title>
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link href="navbar-static-top.css" rel="stylesheet">
+    <link href="./css/navbar-static-top.css" rel="stylesheet">
+    <link href="./css/app.css" rel="stylesheet">
 
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>

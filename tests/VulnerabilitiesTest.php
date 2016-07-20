@@ -49,6 +49,15 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('Hi, <strong>admin</strong>', $this->webDriver->getPageSource());
     }
 
+    public function testSQLInjectionError()
+    {
+        $this->webDriver->get($this->url . "?page=login.php");
+        $usernameField = $this->webDriver->findElement(WebDriverBy::name('username'));
+        $usernameField->sendKeys("admin'")->submit();
+        $this->assertContains('SQL Error', $this->webDriver->getPageSource());
+        $this->assertContains('You have an error in your SQL syntax', $this->webDriver->getPageSource());
+    }
+
     public function testDirectoryTraversal()
     {
         $this->webDriver->get($this->url . "?page=../../etc/passwd");

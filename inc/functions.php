@@ -157,10 +157,22 @@ function getUserIDByUsername($username) {
  * @param $password The password, in case we need to retry using hashing.
  * @return array|false An array with the result or false.
  */
-function getUserByQuery($query, $username, $password) {
+function getUserByQuery($queryString, $username, $password) {
     global $db;
-    $query = $db->query($query);
-    $query->execute();
+    $query = $db->query($queryString);
+    $validSQL = $query && $query->execute();
+    if (!$validSQL) {
+        $errorText = $db->errorInfo()[2];
+        die("
+            <div class='alert alert-danger'>
+                <h4><i class='glyphicon glyphicon-warning-sign'></i> SQL Error</h4>
+                <table class='table'>
+                    <tr><td>SQL Query</td><td class='monospace'>{$queryString}</td></tr>
+                    <tr><td>Error message</td><td class='monospace'>{$errorText}</td></tr>
+                </table>
+            </div>
+        ");
+    }
     $result = $query->fetch(PDO::FETCH_ASSOC);
     if ($result) { return $result; }
     $password = hashPassword($password, getSaltByUsername($username));

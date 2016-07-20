@@ -90,6 +90,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `password_hash`, `role`, `hin
 (1, 'admin', 'mobydick', '', 'staff', 'my favourite book', 'This is the salt for exercise 2'),
 (2, 'matt', 'ilikecats', '', 'user', 'what i love most', 'This is the salt for exercise 2'),
 (3, 'john', 'password', '', 'user', 'ditto', 'This is the salt for exercise 2'),
+(4, 'jake', 'pass5', '', 'staff', 'ditto', 'This is the salt for exercise 2'),
 (16, 'a001', NULL, 'f0d78f50ccfb95a07c19c44d8cafca4f55f3c379aed16a3cf13fbba4ee994f53', 'staff', '', 'This is the salt for exercise 2'),
 (17, 'a002', NULL, 'c1d56af5a8c2651f281fca0c7be811dc99aa38e54daf6e68acba284a691842ee', 'user', 'My usual password', 'This is the salt for exercise 2'),
 (18, 'a003', NULL, 'c6a28b5dc80d98b97ffb3a3b9113f6024a0e3b97fcbc3a1117291f1c3bc0f309', 'user', 'He''d never give you up', 'This is the salt for exercise 2'),

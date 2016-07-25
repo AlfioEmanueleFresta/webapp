@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_GET['reset_db'])) {
-    resetDatabase();
+    $entitiesRemovedNo = resetDatabase();
 }
 
 if (isset($_GET['reset_code'])) {
@@ -28,6 +28,8 @@ if (isset($_GET['reset_code'])) {
                     <div class="alert alert-info">
                         <i class="glyphicon glyphicon-check"></i>
                         The application database has been reset.
+                        <?= $entitiesRemovedNo; ?> entities
+                        have been removed.
                     </div>
                 <?php } ?>
                 <p>

@@ -189,12 +189,15 @@ function getUserByQuery($queryString, $username, $password) {
  * This function will delete all user-generated content in the last day, plus
  * all users with ID greater than 130 (as defined in setup.sql as starting number
  * for new IDs).
+ * @return int The number of entities removed from the database.
  */
 function resetDatabase() {
     global $db;
     $yesterday = time() - (60 * 60 * 24);
-    $db->exec("DELETE FROM comments WHERE timestamp > $yesterday");
-    $db->exec("DELETE FROM users WHERE username >= 130");
+    $total = 0;
+    $total += $db->exec("DELETE FROM comments WHERE timestamp > $yesterday");
+    $total += $db->exec("DELETE FROM users WHERE id >= 130");
+    return $total;
 }
 
 

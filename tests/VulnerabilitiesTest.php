@@ -226,6 +226,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->webDriver->get($this->url . "?page=tcr.php&refresh_me=1");
         $this->assertContains($change, $this->webDriver->getPageSource());
         $this->webDriver->get($this->url . "?page=reset.php&reset_code=1");
+        var_dump($this->webDriver->getPageSource());
         $this->webDriver->get($this->url . "?page=tcr.php&refresh_me=2");
         $this->assertNotContains($change, $this->webDriver->getPageSource());
     }

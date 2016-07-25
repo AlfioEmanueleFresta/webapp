@@ -214,6 +214,21 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertContains('Hi, <strong>alanturing</strong>', $this->webDriver->getPageSource());
     }
 
+    public function testCodeReset() {
+        if (getcwd() == '/vagrant') {
+            $this->markTestIncomplete("Can't run code reset test on vagrant because of permissions.");
+        }
+        $change = "<p>Never gonna give you up, never gonna let you down</p>";
+        $this->webDriver->get($this->url . "?page=about.php");
+        $this->assertNotContains($change, $this->webDriver->getPageSource());
+        file_put_contents("pages/about.php", $change, FILE_APPEND);
+        $this->webDriver->get($this->url . "?page=about.php");
+        $this->assertContains($change, $this->webDriver->getPageSource());
+        $this->webDriver->get($this->url . "?page=reset.php&reset_code=1");
+        $this->webDriver->get($this->url . "?page=about.php");
+        $this->assertNotContains($change, $this->webDriver->getPageSource());
+    }
+
     public function tearDown()
     {
         parent::tearDown();

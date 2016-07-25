@@ -4,3 +4,4 @@ vendor/
 composer.lock
 SeleniumServer.jar
 install_phantomjs.sh
+inc/configuration.php

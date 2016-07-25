@@ -151,6 +151,10 @@ function getUserIDByUsername($username) {
  * If the query returns no result, before giving up, it tries hashing the password.
  * This is because some users have a plain text password and some don't, for the
  * purposes of the different practicals.
+ *
+ * If the query fails, to help the student understand what went wrong (generally a
+ * syntax problem), the script will die printing both the SQL query and the error
+ * returned from MySQL.
  * 
  * @param $query The SQL query to get the user.
  * @param $username The username, in case we need to retry using hashing..

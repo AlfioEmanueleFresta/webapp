@@ -207,6 +207,12 @@ function resetDatabase() {
  * recoverable from the stash -- because I don't want to loose my work while testing it).
  */
 function resetCode() {
-    return exec("git stash");
+    $output = "";
+    $return = -42;
+    $output = system("git stash 2>&1", $return);
+    if ($return) {
+        $output .= "\n(ERROR CODE $return)";
+    }
+    return $output;
 }
 

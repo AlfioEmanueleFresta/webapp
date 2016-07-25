@@ -5,7 +5,7 @@ if (isset($_GET['reset_db'])) {
 }
 
 if (isset($_GET['reset_code'])) {
-    resetCode();
+    $gitOutput = resetCode();
 }
 
 
@@ -19,7 +19,10 @@ if (isset($_GET['reset_code'])) {
             Danger Zone
         </h2>
 
-        <p>From this page, you can:</p>
+        <p>If you've made any changes to the applications and you want to
+            discard them, you can use the following options.</p>
+
+        <hr />
 
         <div class="row">
 
@@ -36,12 +39,16 @@ if (isset($_GET['reset_code'])) {
                     <a  href="?page=reset.php&reset_db=1"
                         data-confirm="Are you sure?"
                         class="btn btn-block btn-danger">
-                        <i class="glyphicon glyphicon-file"></i>
+                        <i class="glyphicon glyphicon-list"></i>
                         Reset Database
                     </a>
                 </p>
-                <p>This will delete any content generated in the last day from the database, including
-                    all comments, new articles and users.</p>
+                <p>This will delete any content generated in the database:</p>
+                <ul>
+                    <li>New comments;</li>
+                    <li>New users.</li>
+                </ul>
+                <p>Sample content will be preserved.</p>
             </div>
 
 
@@ -50,6 +57,10 @@ if (isset($_GET['reset_code'])) {
                     <div class="alert alert-info">
                         <i class="glyphicon glyphicon-check"></i>
                         The application code has been reset.
+                        Git output:
+                        <code>
+                            <?= $gitOutput; ?>
+                        </code>
                     </div>
                 <?php } ?>
                 <p>
@@ -61,7 +72,13 @@ if (isset($_GET['reset_code'])) {
                     </a>
                 </p>
                 <p>This will discard any changes made to the application's code.</p>
-                <p>App directory: <code><?= getcwd(); ?></code></p>
+
+                <?php if (getcwd() == '/vagrant') { ?>
+                <div class="alert alert-warning">
+                    You seem to be running the application in a Vagrant VM.
+                    This won't work here.
+                </div>
+                <?php } ?>
 
             </div>
 
@@ -73,8 +90,7 @@ if (isset($_GET['reset_code'])) {
             If you feel courageous, why don't you
             <a href="?page=reset.php&reset_code=1&reset_db=1&im_a_lion=rooarr"
                class="text-danger" data-confirm="Are you sure?">
-                Reset both the code and the database
-            </a>?
+                reset both the code and the database</a>?
         </p>
 
     </div>

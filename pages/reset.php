@@ -19,7 +19,7 @@ if (isset($_GET['reset_code'])) {
             Danger Zone
         </h2>
 
-        <p>If you've made any changes to the applications and you want to
+        <p>If you've made any changes to the application and you want to
             discard them, you can use the following options.</p>
 
         <hr />

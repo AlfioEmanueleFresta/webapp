@@ -237,7 +237,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $change = "Never gonna make you cry, never gonna say goodbye";
         $this->webDriver->get($this->url . '?page=read.php&article_id=1');
         $commentField = $this->webDriver->findElement(WebDriverBy::name('body'));
-        $commentField->sendKeys($change);
+        $commentField->sendKeys($change)->submit();
         $this->assertContains($change, $this->webDriver->getPageSource());
         $this->logout();
         $this->webDriver->get($this->url . '?page=read.php&article_id=1');

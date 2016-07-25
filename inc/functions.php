@@ -203,13 +203,12 @@ function resetDatabase() {
 
 
 /**
- * Uses `git stash` to discard any changes to the application code (but still have them
- * recoverable from the stash -- because I don't want to loose my work while testing it).
+ * Uses `git` to discard any changes to the application code
  */
 function resetCode() {
     $output = "";
     $return = -42;
-    $output = system("git stash 2>&1", $return);
+    $output = system("git checkout -- . 2>&1", $return);
     if ($return) {
         $output .= "\n(ERROR CODE $return)";
     }

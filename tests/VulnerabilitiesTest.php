@@ -221,7 +221,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $change = "<p>Never gonna give you up, never gonna let you down</p>";
         $this->webDriver->get($this->url . "?page=about.php");
         $this->assertNotContains($change, $this->webDriver->getPageSource());
-        file_put_contents("pages/about.php", $change);
+        system("echo \"$change\" >> pages/about.php 2>&1");
         sleep(1);
         $this->webDriver->get($this->url . "?page=about.php&refresh_me=1");
         $this->assertContains($change, $this->webDriver->getPageSource());

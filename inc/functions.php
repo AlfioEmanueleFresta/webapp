@@ -183,3 +183,27 @@ function getUserByQuery($queryString, $username, $password) {
     $result = $query->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
+
+
+/**
+ * This function will delete all user-generated content in the last day, plus
+ * all users with ID greater than 130 (as defined in setup.sql as starting number
+ * for new IDs).
+ */
+function resetDatabase() {
+    global $db;
+    $yesterday = time() - (60 * 60 * 24);
+    $db->exec("DELETE FROM comments WHERE timestamp > $yesterday");
+    $db->exec("DELETE FROM users WHERE username >= 130");
+}
+
+
+
+/**
+ * Uses `git stash` to discard any changes to the application code (but still have them
+ * recoverable from the stash -- because I don't want to loose my work while testing it).
+ */
+function resetCode() {
+    return exec("git stash");
+}
+

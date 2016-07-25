@@ -232,6 +232,22 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         $this->assertNotContains($change, $this->webDriver->getPageSource());
     }
 
+    public function testDatabaseReset() {
+        $this->loginAs('john', 'password');
+        $change = "Never gonna make you cry, never gonna say goodbye";
+        $this->webDriver->get($this->url . '?page=read.php&article_id=1');
+        $commentField = $this->webDriver->findElement(WebDriverBy::name('body'));
+        $commentField->sendKeys($change);
+        $this->assertContains($change, $this->webDriver->getPageSource());
+        $this->logout();
+        $this->webDriver->get($this->url . '?page=read.php&article_id=1');
+        $this->assertContains($change, $this->webDriver->getPageSource());
+        $this->webDriver->get($this->url . "?page=reset.php&reset_db=1");
+        $this->webDriver->get($this->url . '?page=read.php&article_id=1');
+        $this->assertNotContains($change, $this->webDriver->getPageSource());
+
+    }
+
     public function tearDown()
     {
         parent::tearDown();

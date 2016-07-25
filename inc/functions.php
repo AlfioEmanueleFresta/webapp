@@ -203,15 +203,18 @@ function resetDatabase() {
 
 
 /**
- * Uses `git` to discard any changes to the application code
+ * Uses `git` to discard any changes to the application code. Also, make sure
+ * the configuration file is preserved.
  */
 function resetCode() {
     $output = "";
     $return = -42;
+    $config = file_get_contents("inc/configuration.php");
     $output = system("git checkout -- . 2>&1", $return);
     if ($return) {
         $output .= "\n(ERROR CODE $return)";
     }
+    file_put_contents("inc/configuration.php", $config);
     return $output;
 }
 

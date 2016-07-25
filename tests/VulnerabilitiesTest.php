@@ -218,6 +218,7 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
         if (getcwd() == '/vagrant') {
             $this->markTestIncomplete("Can't run code reset test on vagrant because of permissions.");
         }
+        $this->markTestIncomplete("Unfortunately this can't be tested yet.");
         $change = "<p>Never gonna give you up, never gonna let you down</p>";
         $this->webDriver->get($this->url . "?page=tcr.php");
         $this->assertNotContains($change, $this->webDriver->getPageSource());

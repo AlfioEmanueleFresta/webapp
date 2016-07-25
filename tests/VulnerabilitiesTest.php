@@ -219,14 +219,14 @@ class VulnerabilitiesTest extends PHPUnit_Framework_TestCase {
             $this->markTestIncomplete("Can't run code reset test on vagrant because of permissions.");
         }
         $change = "<p>Never gonna give you up, never gonna let you down</p>";
-        $this->webDriver->get($this->url . "?page=about.php");
+        $this->webDriver->get($this->url . "?page=tcr.php");
         $this->assertNotContains($change, $this->webDriver->getPageSource());
-        system("echo \"$change\" >> pages/about.php 2>&1");
+        system("echo \"$change\" >> pages/tcr.php 2>&1");
         sleep(1);
-        $this->webDriver->get($this->url . "?page=about.php&refresh_me=1");
+        $this->webDriver->get($this->url . "?page=tcr.php&refresh_me=1");
         $this->assertContains($change, $this->webDriver->getPageSource());
         $this->webDriver->get($this->url . "?page=reset.php&reset_code=1");
-        $this->webDriver->get($this->url . "?page=about.php&refresh_me=2");
+        $this->webDriver->get($this->url . "?page=tcr.php&refresh_me=2");
         $this->assertNotContains($change, $this->webDriver->getPageSource());
     }
 

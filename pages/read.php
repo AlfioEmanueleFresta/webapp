@@ -53,7 +53,7 @@ $commentsNo = count($comments);
         </p>
         <hr />
         <p>
-            <?= $article["body"]; ?>
+            <?= prepareArticleBody($article["body"]); ?>
         </p>
 
         <hr />

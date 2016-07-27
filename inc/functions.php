@@ -222,3 +222,13 @@ function resetCode() {
     return $output;
 }
 
+
+/**
+ * Prepares the article body for display in a HTML page.
+ * @param $body Raw text article body.
+ * @return HTML article body.
+ */
+function prepareArticleBody($body) {
+    $body = nl2br($body);
+    return $body;
+}

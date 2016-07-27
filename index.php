@@ -7,9 +7,8 @@
  * Copyright 2016 Alfio E. Fresta
  */
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Set CORS policy to insanely permissive
+header("Access-Control-Allow-Origin: *");
 
 require('inc/configuration.php');
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.12deb2+deb8u1
+-- version 4.2.12deb2+deb8u2
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 15, 2016 at 03:48 PM
--- Server version: 5.5.49-0+deb8u1
--- PHP Version: 5.6.23-0+deb8u1
+-- Generation Time: Jul 27, 2016 at 10:27 AM
+-- Server version: 5.5.50-0+deb8u1
+-- PHP Version: 5.6.24-0+deb8u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `articles` (
 --
 
 INSERT INTO `articles` (`id`, `timestamp`, `author_id`, `title`, `body`) VALUES
-(1, 1467812252, 1, 'My First Article', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In egestas nulla eros, eget fringilla mi mollis vitae. Mauris porttitor hendrerit magna, eget viverra purus mattis in. Pellentesque faucibus consequat volutpat. Integer sit amet vulputate sem. Cras id laoreet lectus. Vestibulum convallis, libero ac bibendum aliquam, lacus nunc dapibus ante, ac tincidunt quam libero eget dui. Sed lectus turpis, lacinia et sollicitudin ullamcorper, tincidunt eu tellus. In hac habitasse platea dictumst. Maecenas cursus dolor at ante hendrerit, et molestie metus mollis. Maecenas facilisis egestas libero, in finibus nisl condimentum eget. Nam eu massa turpis. Donec tristique vitae leo sit amet vulputate.\r\n'),
-(2, 1467813252, 2, 'My Second Article', 'Nam nec sagittis elit, id dictum eros. Cras pulvinar ex at dictum vehicula. Sed quis est a libero gravida tristique. Pellentesque ligula mauris, efficitur condimentum ipsum sagittis, bibendum placerat nulla. Nulla posuere eleifend metus nec laoreet. Morbi dolor urna, sagittis id ligula at, egestas bibendum neque. Donec vitae magna semper ante ornare feugiat et sed mauris. Cras sagittis turpis ut tristique fermentum. Praesent dignissim tellus nec velit tempus tincidunt.\r\n\r\nCras quis dapibus ipsum, quis rhoncus tellus. Vivamus ac efficitur nisl. Phasellus ultricies purus venenatis leo semper, vitae euismod arcu luctus. Donec malesuada blandit ligula vitae efficitur. Nam dui leo, fringilla quis tellus id, malesuada sagittis lectus. Integer convallis augue vestibulum, aliquet mauris a, ultricies risus. Donec consectetur gravida orci eu porttitor. Donec eget tincidunt lectus. Nunc non ornare lacus.\r\n\r\n'),
-(3, 1467814252, 3, 'My Third Article', 'Nam nec sagittis elit, id dictum eros. Cras pulvinar ex at dictum vehicula. Sed quis est a libero gravida tristique. Pellentesque ligula mauris, efficitur condimentum ipsum sagittis, bibendum placerat nulla. Nulla posuere eleifend metus nec laoreet. Morbi dolor urna, sagittis id ligula at, egestas bibendum neque. Donec vitae magna semper ante ornare feugiat et sed mauris. Cras sagittis turpis ut tristique fermentum. Praesent dignissim tellus nec velit tempus tincidunt.\r\n\r\nCras quis dapibus ipsum, quis rhoncus tellus. Vivamus ac efficitur nisl. Phasellus ultricies purus venenatis leo semper, vitae euismod arcu luctus. Donec malesuada blandit ligula vitae efficitur. Nam dui leo, fringilla quis tellus id, malesuada sagittis lectus. Integer convallis augue vestibulum, aliquet mauris a, ultricies risus. Donec consectetur gravida orci eu porttitor. Donec eget tincidunt lectus. Nunc non ornare lacus.\r\n\r\n');
+(1, 1467812252, 1, 'Alan Turing', 'Alan Mathison Turing OBE FRS (23 June 1912 - 7 June 1954) was a pioneering English computer scientist, mathematician, logician, cryptanalyst and theoretical biologist. He was highly influential in the development of theoretical computer science, providing a formalisation of the concepts of algorithm and computation with the Turing machine, which can be considered a model of a general purpose computer. Turing is widely considered to be the father of theoretical computer science and artificial intelligence.\r\n\r\nDuring the Second World War, Turing worked for the Government Code and Cypher School (GC&CS) at Bletchley Park, Britain''s codebreaking centre. For a time he led Hut 8, the section responsible for German naval cryptanalysis. He devised a number of techniques for breaking German ciphers, including improvements to the pre-war Polish bombe method and an electromechanical machine that could find settings for the Enigma machine. Turing played a pivotal role in cracking intercepted coded messages that enabled the Allies to defeat the Nazis in many crucial engagements, including the Battle of the Atlantic; it has been estimated that this work shortened the war in Europe by as many as four years.\r\n\r\n("Alan Turing", Wikipedia: The Free Encyclopedia)'),
+(2, 1467813252, 2, 'Dennis MacAlistair Ritchie', 'Dennis MacAlistair Ritchie (September 9, 1941 - c. October 12, 2011) was an American computer scientist. He created the C programming language and, with long-time colleague Ken Thompson, the Unix operating system. Ritchie and Thompson received the Turing Award from the ACM in 1983, the Hamming Medal from the IEEE in 1990 and the National Medal of Technology from President Clinton in 1999. Ritchie was the head of Lucent Technologies System Software Research Department when he retired in 2007. He was the "R" in K&R C, and commonly known by his username dmr.\r\n\r\n("Dennis MacAlistair Ritchie", Wikipedia: The Free Encyclopedia)'),
+(3, 1467814252, 3, 'The PHP Programming Language', 'PHP is a server-side scripting language designed for web development but also used as a general-purpose programming language. Originally created by Rasmus Lerdorf in 1994, the PHP reference implementation is now produced by The PHP Group. PHP originally stood for Personal Home Page, but it now stands for the recursive backronym PHP: Hypertext Preprocessor.\r\n\r\nPHP code may be embedded into HTML code, or it can be used in combination with various web template systems, web content management systems and web frameworks. PHP code is usually processed by a PHP interpreter implemented as a module in the web server or as a Common Gateway Interface (CGI) executable. The web server combines the results of the interpreted and executed PHP code, which may be any type of data, including images, with the generated web page. PHP code may also be executed with a command-line interface (CLI) and can be used to implement standalone graphical applications.\r\n\r\n("PHP", Wikipedia: The Free Encyclopedia)');
 
 -- --------------------------------------------------------
 
@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
 --
 
 INSERT INTO `comments` (`id`, `article_id`, `author_id`, `timestamp`, `body`) VALUES
-(8, 1, 2, 1467821812, 'Great article. The most interesting placeholder text I''ve read in my entire life.'),
-(9, 2, 3, 1467821925, 'This is a great first article. The only thing I can think it''s missing is... any meaning at all.'),
+(8, 1, 2, 1467821812, 'Great article. The most interesting copy-and-pasted article from Wikipedia I''ve read in my entire life.'),
+(9, 2, 3, 1467821925, 'This is a great article. This man contributed a lot to Computer Science.'),
 (10, 1, 1, 1467821937, 'You''re right, Matt.');
 
 -- --------------------------------------------------------

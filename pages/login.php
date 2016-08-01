@@ -11,9 +11,10 @@ if ($_POST) {
 
     $queryString = "SELECT id, username, role FROM users WHERE username='$username' AND password='$password'";
 
-    // Execute the query, and check for any SQL errors
+    // Execute the query
     $query = $db->query($queryString);
 
+    // Check for any SQL errors
     $validSQL = $query && $query->execute();
     if (!$validSQL) {
         printSQLError($queryString);
@@ -28,11 +29,10 @@ if ($_POST) {
         $result = tryMoreComplicatedLoginMethod($username, $password);
     }
 
+    // If an user is found, then log in as them.
     if ( $result ) {
-
         loginAs($result['id'], $result['username'], $result['role']);
-        redirectTo("index.php&logged_in");
-
+        redirectTo("index.php&logged_in");  // Go back to the home page.
     }
 
 }

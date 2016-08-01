@@ -9,9 +9,24 @@ if ($_POST) {
     $username = strtolower($_POST['username']);  // Make the username lowercase.
     $password = $_POST['password'];
 
-    $query = "SELECT id, username, role FROM users WHERE username='$username' AND password='$password'";
+    $queryString = "SELECT id, username, role FROM users WHERE username='$username' AND password='$password'";
 
-    $result  = getUserByQuery($query, $username, $password);
+    // Execute the query, and check for any SQL errors
+    $query = $db->query($queryString);
+
+    $validSQL = $query && $query->execute();
+    if (!$validSQL) {
+        printSQLError($queryString);
+        exit();
+    }
+
+    // Get the user data
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+
+    // You can ignore this -- it's nothing to do with the practical.
+    if (!$result) {
+        $result = tryMoreComplicatedLoginMethod($username, $password);
+    }
 
     if ( $result ) {
 

@@ -140,34 +140,10 @@ function getUserIDByUsername($username) {
 }
 
 
-/*
- * This function is used to simplify the login code, and to allow
- * multiple practicals (SQL injection and Password hashing) to demonstrate
- * using this application.
- * 
- * Given a query which returns id, role and username from the users table,
- * runs it and returns the first row as an associative array. 
- * 
- * If the query returns no result, before giving up, it tries hashing the password.
- * This is because some users have a plain text password and some don't, for the
- * purposes of the different practicals.
- *
- * If the query fails, to help the student understand what went wrong (generally a
- * syntax problem), the script will die printing both the SQL query and the error
- * returned from MySQL.
- * 
- * @param $query The SQL query to get the user.
- * @param $username The username, in case we need to retry using hashing..
- * @param $password The password, in case we need to retry using hashing.
- * @return array|false An array with the result or false.
- */
-function getUserByQuery($queryString, $username, $password) {
+function printSQLError($queryString) {
     global $db;
-    $query = $db->query($queryString);
-    $validSQL = $query && $query->execute();
-    if (!$validSQL) {
-        $errorText = $db->errorInfo()[2];
-        die("
+    $errorText = $db->errorInfo()[2];
+    echo "
             <div class='alert alert-danger'>
                 <h4><i class='glyphicon glyphicon-warning-sign'></i> SQL Error</h4>
                 <table class='table'>
@@ -175,15 +151,30 @@ function getUserByQuery($queryString, $username, $password) {
                     <tr><td>Error message</td><td class='monospace'>{$errorText}</td></tr>
                 </table>
             </div>
-        ");
-    }
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    if ($result) { return $result; }
+        ";
+}
+
+
+/*
+ * This method is used if the plain text password lookup did not work --
+ * This is because some users have a plain text password and some don't, for the
+ * purposes of the different practicals.
+ *
+ * @param $username The username.
+ * @param $password The password, as inserted by the user.
+ * @return array|false An array with the result or false.
+ */
+function tryMoreComplicatedLoginMethod($username, $password) {
+    global $db;
+
+    // Hash the password, with a pinch of salt.
     $password = hashPassword($password, getSaltByUsername($username));
+
     $query = $db->prepare("SELECT id, role, username FROM users WHERE username = :u AND password_hash = :p");
     $query->bindValue(':u', $username);
     $query->bindValue(':p', $password);
     $query->execute();
+
     $result = $query->fetch(PDO::FETCH_ASSOC);
     return $result;
 }
